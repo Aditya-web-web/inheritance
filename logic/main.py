@@ -210,9 +210,16 @@ new_record(df)
 
 print(df)
 
-with open('C:/Users/amans/Desktop/Final/logic/creditmodel_final.joblib', 'rb') as file:
-    credit_model = joblib.load(file)
+# Get the directory where the current script is located
+current_dir = os.path.dirname(os.path.realpath(__file__))
 
+# Construct the full path to the model file
+model_path = os.path.join(current_dir, 'creditmodel_final.joblib')
+
+# Load the model
+with open(model_path, 'rb') as file:
+    credit_model = joblib.load(file)
+    
 latest_record = df.iloc[[-1]]
 
 score = credit_model.predict(latest_record[['Income_lvl','Age_lvl','Dep_lvl','Debts_lvl','Education_lvl','Assets_lvl','City_lvl','Installments_lvl','Late_lvl']])
